@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Edit from "./Edit";
+import ListsContext from "../context/lists";
 
-const Item = ({ list, onEdit, onDelete }) => {
+const Item = ({ list }) => {
   const [showEdit, setShowEdit] = useState(false);
+  const { handleDelete } = useContext(ListsContext);
 
   return (
     <div className="flex flex-col relative w-70 rounded-lg gap-5 bg-black text-[whitesmoke] p-5">
@@ -11,7 +13,7 @@ const Item = ({ list, onEdit, onDelete }) => {
           <div className="flex justify-between">
             <h2 className="wrap-break-word w-50">{list.title}</h2>
             <button
-              onClick={() => onDelete(list.id)}
+              onClick={() => handleDelete(list.id)}
               className="absolute rounded-lg top-0 right-1 "
             >
               &times;
@@ -25,12 +27,7 @@ const Item = ({ list, onEdit, onDelete }) => {
           </button>
         </>
       ) : (
-        <Edit
-          list={list}
-          showEdit={showEdit}
-          setShowEdit={setShowEdit}
-          onEdit={onEdit}
-        />
+        <Edit list={list} showEdit={showEdit} setShowEdit={setShowEdit} />
       )}
     </div>
   );

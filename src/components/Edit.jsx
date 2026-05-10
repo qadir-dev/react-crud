@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import ListsContext from "../context/lists";
 
-const Edit = ({ list, showEdit, setShowEdit, onEdit }) => {
+const Edit = ({ list, showEdit, setShowEdit }) => {
   const [title, setTitle] = useState(list.title);
+  const { handleEdit } = useContext(ListsContext);
 
   const handleChange = (event) => {
     setTitle(event.target.value);
@@ -9,9 +11,10 @@ const Edit = ({ list, showEdit, setShowEdit, onEdit }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onEdit(list.id, title);
+    handleEdit(list.id, title);
     setShowEdit(!showEdit);
   };
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <input value={title} onChange={handleChange} />

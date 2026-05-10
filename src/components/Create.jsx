@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import ListsContext from "../context/lists";
 
-const Create = ({ onCreate }) => {
+const Create = () => {
   const [title, setTitle] = useState();
+  const { handleCreate } = useContext(ListsContext);
 
   const handleChange = (event) => {
     setTitle(event.target.value);
@@ -9,7 +11,7 @@ const Create = ({ onCreate }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onCreate(title);
+    handleCreate(title);
     setTitle("");
   };
 
